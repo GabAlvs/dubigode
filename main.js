@@ -1,3 +1,14 @@
+/* ── HERO: carrega apenas o vídeo do dispositivo atual ───────────────────── */
+(function () {
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const video = document.querySelector(isMobile ? '.hero-video--mobile' : '.hero-video--desktop');
+  if (!video) return;
+  video.src = video.dataset.src;
+  video.preload = 'auto';
+  const play = () => video.play().catch(() => {});
+  video.addEventListener('canplay', play, { once: true });
+})();
+
 /* ── DRINKS: scroll-driven panel switcher ─────────────────────────────── */
 const wrapper    = document.getElementById('drinks-wrapper');
 const panels     = document.querySelectorAll('.drink-panel');

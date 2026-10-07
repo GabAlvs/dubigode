@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Du'Bigode — Drinks Artesanais Engarrafados</title>
+  <link rel="preload" as="image" href="assets/poster-banner.jpg" media="(min-width: 769px)" />
+  <link rel="preload" as="image" href="assets/poster-mobile.jpg" media="(max-width: 768px)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,7 +16,7 @@
   <!-- NAV -->
   <nav id="main-nav" aria-label="Navegação principal">
     <a href="#hero" class="nav-logo">
-      <img src="assets/logo.png" alt="Du'Bigode" class="nav-logo-img" />
+      <img src="assets/logo.webp" alt="Du'Bigode" class="nav-logo-img" />
     </a>
     <ul class="nav-links">
       <li><a href="#drinks-wrapper">Drinks</a></li>
@@ -26,14 +28,11 @@
 
   <!-- HERO -->
   <section id="hero">
-    <video class="hero-video hero-video--desktop" autoplay muted loop playsinline>
-      <source src="assets/video-banner.mp4" type="video/mp4" />
-      <source src="assets/banner-hero.webm" type="video/webm" />
-    </video>
-    <video class="hero-video hero-video--mobile" autoplay muted loop playsinline>
-      <source src="assets/video-mobile.mp4" type="video/mp4" />
-      <source src="assets/video-mobile.webm" type="video/webm" />
-    </video>
+    <!-- só o vídeo do tamanho de tela atual é baixado (ver main.js) -->
+    <video class="hero-video hero-video--desktop" data-src="assets/video-banner.mp4" poster="assets/poster-banner.jpg"
+           autoplay muted loop playsinline preload="none"></video>
+    <video class="hero-video hero-video--mobile" data-src="assets/video-mobile.mp4" poster="assets/poster-mobile.jpg"
+           autoplay muted loop playsinline preload="none"></video>
     <div class="hero-overlay" aria-hidden="true"></div>
 
     <a href="#drinks-wrapper" class="hero-cta">Conheça os Drinks</a>
@@ -87,7 +86,7 @@
     <div id="drinks-sticky">
 
       <!-- TROPICAIPI -->
-      <article class="drink-panel active" data-drink="0" data-color="#F5A623" style="background-image: url('assets/manga-fundo.png'); background-size: cover; background-position: center;">
+      <article class="drink-panel active" data-drink="0" data-color="#F5A623" style="background-image: url('assets/manga-fundo.webp'); background-size: cover; background-position: center;">
         <div class="drink-layout">
           <div class="drink-info">
             <span class="drink-label">001 / Drink</span>
@@ -101,7 +100,7 @@
           </div>
           <div class="drink-bottle-side">
             <div class="drink-bottle-img-wrap">
-              <img src="assets/drink-2.png" alt="Tropicaipi"
+              <img loading="lazy" decoding="async" src="assets/drink-2.webp" alt="Tropicaipi"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
               <div class="placeholder-bottle" style="display:none;background:#F5A623;"></div>
             </div>
@@ -110,7 +109,7 @@
       </article>
 
       <!-- LOVEGIN -->
-      <article class="drink-panel" data-drink="1" data-color="#B01C2E" style="background-image: url('assets/vermelho-fundo.jpg'); background-size: cover; background-position: center;">
+      <article class="drink-panel" data-drink="1" data-color="#B01C2E" style="background-image: url('assets/vermelho-fundo.webp'); background-size: cover; background-position: center;">
         <div class="drink-layout">
           <div class="drink-info">
             <span class="drink-label">002 / Drink</span>
@@ -125,7 +124,7 @@
           </div>
           <div class="drink-bottle-side">
             <div class="drink-bottle-img-wrap">
-              <img src="assets/love-gin.png" alt="LoveGin"
+              <img loading="lazy" decoding="async" src="assets/love-gin.webp" alt="LoveGin"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
               <div class="placeholder-bottle" style="display:none;background:#B01C2E;"></div>
             </div>
@@ -134,7 +133,7 @@
       </article>
 
       <!-- CAIPI DU'BIGODE -->
-      <article class="drink-panel" data-drink="2" data-color="#4CAF50" style="background-image: url('assets/limao-fundo.jpg'); background-size: cover; background-position: center;">
+      <article class="drink-panel" data-drink="2" data-color="#4CAF50" style="background-image: url('assets/limao-fundo.webp'); background-size: cover; background-position: center;">
         <div class="drink-layout">
           <div class="drink-info">
             <span class="drink-label">003 / Drink</span>
@@ -148,7 +147,7 @@
           </div>
           <div class="drink-bottle-side">
             <div class="drink-bottle-img-wrap">
-              <img src="assets/caipi-du-bigode.png" alt="Caipi Du'Bigode"
+              <img loading="lazy" decoding="async" src="assets/caipi-du-bigode.webp" alt="Caipi Du'Bigode"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
               <div class="placeholder-bottle" style="display:none;background:#4CAF50;"></div>
             </div>
@@ -157,7 +156,7 @@
       </article>
 
       <!-- MATE DU'BIGODE -->
-      <article class="drink-panel" data-drink="3" data-color="#8B6914" style="background-image: url('assets/mate-fundo.jpg'); background-size: cover; background-position: center;">
+      <article class="drink-panel" data-drink="3" data-color="#8B6914" style="background-image: url('assets/mate-fundo.webp'); background-size: cover; background-position: center;">
         <div class="drink-layout">
           <div class="drink-info">
             <span class="drink-label">004 / Drink</span>
@@ -172,7 +171,7 @@
           </div>
           <div class="drink-bottle-side">
             <div class="drink-bottle-img-wrap">
-              <img src="assets/drink-1.png" alt="Mate Du'Bigode"
+              <img loading="lazy" decoding="async" src="assets/drink-1.webp" alt="Mate Du'Bigode"
                    onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
               <div class="placeholder-bottle" style="display:none;background:#8B6914;"></div>
             </div>
@@ -187,7 +186,7 @@
   <section id="sobre">
     <div class="sobre-layout">
       <div class="sobre-foto-wrap fade-in-up">
-        <img src="assets/bigode.png" alt="Bigode, fundador da Du'Bigode" class="sobre-foto" />
+        <img loading="lazy" decoding="async" src="assets/bigode.webp" alt="Bigode, fundador da Du'Bigode" class="sobre-foto" />
       </div>
       <div class="sobre-texto">
         <span class="sobre-label fade-in-up">O Fundador</span>
@@ -305,7 +304,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="assets/logo.png" alt="Du'Bigode" class="footer-logo-img" />
+      <img src="assets/logo.webp" alt="Du'Bigode" class="footer-logo-img" />
     </div>
     <div class="footer-links">
       <a href="https://www.instagram.com/drinksdubigode" target="_blank" rel="noopener">@drinksdubigode</a>
@@ -324,6 +323,6 @@
     </svg>
   </a>
 
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </body>
 </html>
