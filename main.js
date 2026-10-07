@@ -30,10 +30,19 @@ function triggerIngredients(panel) {
 }
 
 /* map scroll position inside wrapper to drink index */
+let wrapTop = 0, wrapHeight = 0, viewH = window.innerHeight, ticking = false;
+
+function measure() {
+  viewH      = window.innerHeight;
+  wrapHeight = wrapper.offsetHeight;
+  wrapTop    = wrapper.getBoundingClientRect().top + window.scrollY;
+}
+
 function onScroll() {
-  const rect     = wrapper.getBoundingClientRect();
-  const scrollable = wrapper.offsetHeight - window.innerHeight;
-  const scrolled   = Math.max(0, -rect.top);
+  ticking = false;
+  const top        = wrapTop - window.scrollY;           /* rect.top, sem forçar layout */
+  const scrollable = wrapHeight - viewH;
+  const scrolled   = Math.max(0, -top);
   const progress   = Math.min(1, scrolled / scrollable);
 
   /*
@@ -43,21 +52,27 @@ function onScroll() {
   */
   const index = Math.min(NUM - 1, Math.floor(progress * NUM));
 
-  const inView = rect.top < window.innerHeight && rect.bottom > 0;
+  const inView = top < viewH && top + wrapHeight > 0;
   drinkNav.classList.toggle('visible', inView);
 
   if (inView) activateDrink(index);
 }
 
-window.addEventListener('scroll', onScroll, { passive: true });
+function requestTick() {
+  if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+}
+
+window.addEventListener('scroll', requestTick, { passive: true });
+window.addEventListener('resize', () => { measure(); requestTick(); });
+window.addEventListener('load', () => { measure(); requestTick(); });
 
 /* dot click → scroll to corresponding progress position */
 navItems.forEach(item => {
   item.addEventListener('click', () => {
     const idx      = parseInt(item.dataset.index, 10);
-    const scrollable = wrapper.offsetHeight - window.innerHeight;
+    const scrollable = wrapHeight - viewH;
     /* centre each drink in its slice */
-    const target   = wrapper.offsetTop + (idx / NUM) * scrollable + scrollable / NUM / 2;
+    const target   = wrapTop + (idx / NUM) * scrollable + scrollable / NUM / 2;
     window.scrollTo({ top: target, behavior: 'smooth' });
   });
 });
@@ -65,6 +80,7 @@ navItems.forEach(item => {
 /* init on load */
 triggerIngredients(panels[0]);
 activateDrink(0);
+measure();
 onScroll();
 
 /* ── AGENDA ────────────────────────────────────────────────────────────── */
